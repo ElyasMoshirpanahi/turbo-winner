@@ -2,6 +2,7 @@
 
 An automatic clicker for the (Hamster ~ TapSwap ~ Cex IO) bots.
 
+
 ## Prerequisites
 
 - Python 3.10 or higher
