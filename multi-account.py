@@ -19,7 +19,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 
 logger   = setup_custom_logger("mainapp")
-executor = ThreadPoolExecutor(5)
+executor = ThreadPoolExecutor(15)
 
 
 
@@ -36,6 +36,8 @@ with open('config.json') as f:
     max_days_for_return = data['max_days_for_return']
     
     no_upgrade       = data['no_upgrade']
+    
+    
     cexio_clicker    = data['cexio_clicker']
     tapswap_clicker  = data['tapswap_clicker']
     hamster_clicker  = data['hamster_clicker']
@@ -46,9 +48,10 @@ with open('config.json') as f:
 if not os.path.exists('sessions'):
     os.mkdir('sessions')
 
+logger.info(f"No upgrade links are :{no_upgrade}")
 
 m = """
-Welcome to the Multi Session version of the All in One Clicker script! 🎉
+Welcome to the Multi Session version of the All in One Clicker script! ðŸŽ‰
 
 GitHub Repository: https://github.com/Poryaei/All-In-One
 
@@ -82,7 +85,7 @@ START_TIME = time.time()
 def create_clickers():
     global clickers
     
-    logger.info('Start connecting the clickers! 💻🔗')
+    logger.info('Start connecting the clickers! ðŸ’»ðŸ”—')
     url_files = [f for f in os.listdir('cache') if f.endswith('.json')]
     tasks = []
     
@@ -95,8 +98,15 @@ def create_clickers():
             hamster_url = cache_db.get('hamster_url')
             cex_io_url  = cache_db.get('cex_io_url')
 
-            perform_upgrade = False if no_upgrade == admin else True 
-
+            if int(client_id) == int(no_upgrade) or int(client_id)  == int(admin):
+                perform_upgrade = False
+                
+            else:
+                perform_upgrade = True
+            
+            #perform_upgrade = False if client_id  == no_upgrade or client_id  == admin  else True 
+            
+            logger.info(f"Perform upgrade for {client_id} is {perform_upgrade} -- admin is {admin} and no_upgrade is {no_upgrade} ")
             tapswap_client = TapSwap(tapswap_url, auto_upgrade, max_charge_level, max_energy_level, max_tap_level, client_id)
             hamster_client = HamsterCombat(
                 url = hamster_url,
@@ -317,52 +327,52 @@ async def answer(event):
         return
     
     if text == '/start':
-        await event.reply('👋 Welcome to the Clickers Management Bot! 🤖\n\nTo view the menu, send the command /help. 😉')
+        await event.reply('ðŸ‘‹ Welcome to the Clickers Management Bot! ðŸ¤–\n\nTo view the menu, send the command /help. ðŸ˜‰')
     
     elif text == '/ping':
-        await event.reply('I am online! 🌐')
+        await event.reply('I am online! ðŸŒ')
     
     elif text == '/claim_daily_combo':
-        m = await event.reply('It might take some time ⏳.')
+        m = await event.reply('It might take some time â³.')
         daily_combo()
-        await m.edit('🚀 Your request has been sent.')
+        await m.edit('ðŸš€ Your request has been sent.')
     
     elif text.startswith('/cipher '):
         cipher = text.split('/cipher ')[1]
-        m = await event.reply('It might take some time ⏳.')
+        m = await event.reply('It might take some time â³.')
         daily_cipher(cipher)
-        await m.edit('🚀 Your request has been sent.')
+        await m.edit('ðŸš€ Your request has been sent.')
     
     elif text.startswith('/click '):
         stats = text.split('/click ')[1]
         if not stats in ['off', 'on']:
-            await event.reply('❌ Bad Command!')
+            await event.reply('âŒ Bad Command!')
             return
         
         db['click'] = stats
         if stats == 'on':
-            await event.reply('✅ Mining Started!')
+            await event.reply('âœ… Mining Started!')
         else:
-            await event.reply('💤 Mining turned off!')
+            await event.reply('ðŸ’¤ Mining turned off!')
     
     elif text.startswith('/buy '):
         item = text.split('/buy ')[1]
-        m = await event.reply('It might take some time ⏳.')
+        m = await event.reply('It might take some time â³.')
         buy_card(item)
-        await m.edit('🚀 Your request has been sent.')
+        await m.edit('ðŸš€ Your request has been sent.')
         
     elif text == '/balance':
-        m = await event.reply('Calculating the inventory. It might take some time ⏳.')
+        m = await event.reply('Calculating the inventory. It might take some time â³.')
         tapswap, hamster, cexio, hamster_earn_per_hour = total_balance()
         await m.edit(f"""Total number of clickers: `{len(clickers)}`
 Total inventories:
 
-🤖 Total TapSwap: `{convert_big_number(tapswap)}`
-🐹 Total Hamster: `{convert_big_number(hamster)}`
-🔗 Total CEX IO:  `{convert_big_number(cexio)}`
+ðŸ¤– Total TapSwap: `{convert_big_number(tapswap)}`
+ðŸ¹ Total Hamster: `{convert_big_number(hamster)}`
+ðŸ”— Total CEX IO:  `{convert_big_number(cexio)}`
 
-🐹 Total Hamster Earn Per Hour:  `{convert_big_number(hamster_earn_per_hour)}`
-🐹 Total Hamster Earn Per Day:   `{convert_big_number(hamster_earn_per_hour*24)}`
+ðŸ¹ Total Hamster Earn Per Hour:  `{convert_big_number(hamster_earn_per_hour)}`
+ðŸ¹ Total Hamster Earn Per Day:   `{convert_big_number(hamster_earn_per_hour*24)}`
 """)
     
     elif text == '/help':
@@ -375,36 +385,36 @@ Total inventories:
         
         _uptime            = time.time() - START_TIME
         _hours, _minutes   = convert_uptime(_uptime)
-        _clicker_stats     = "ON 🟢" if db['click'] == 'on' else "OFF 🔴"
+        _clicker_stats     = "ON ðŸŸ¢" if db['click'] == 'on' else "OFF ðŸ”´"
 
         await event.reply(f"""
-🤖 Welcome to All-In-One (MA) Collector Bot!
-Just a powerful clicker and non-stop bread 🚀
+ðŸ¤– Welcome to All-In-One (MA) Collector Bot!
+Just a powerful clicker and non-stop bread ðŸš€
 
 
-💻 Author: `Abolfazl Poryaei`
-📊 Clicker stats: `{_clicker_stats}`
-⏳ Uptime: `{_hours} hours and {_minutes} minutes`
-🎛 CPU usage: `{cpu_percent:.2f}%`
-🎚 Memory usage: `{mem_usage:.2f}/{mem_total:.2f} MB ({mem_percent:.2f}%)`
+ðŸ’» Author: `Abolfazl Poryaei`
+ðŸ“Š Clicker stats: `{_clicker_stats}`
+â³ Uptime: `{_hours} hours and {_minutes} minutes`
+ðŸŽ› CPU usage: `{cpu_percent:.2f}%`
+ðŸŽš Memory usage: `{mem_usage:.2f}/{mem_total:.2f} MB ({mem_percent:.2f}%)`
 
-🤖 Global commands:
+ðŸ¤– Global commands:
 
-🟢 `/click on` - Start collecting (Hamster ~ TapSwap ~ Cex IO)
-🔴 `/click off` - Stop collecting (Hamster ~ TapSwap ~ Cex IO)
+ðŸŸ¢ `/click on` - Start collecting (Hamster ~ TapSwap ~ Cex IO)
+ðŸ”´ `/click off` - Stop collecting (Hamster ~ TapSwap ~ Cex IO)
 
-🟡 `/ping` - Check if the robot is online
-🟢 `/help` - Display help menu
-⚪️ `/balance` - Show Total balance
-⚫️ `/stop` - Stop the robot
+ðŸŸ¡ `/ping` - Check if the robot is online
+ðŸŸ¢ `/help` - Display help menu
+âšªï¸ `/balance` - Show Total balance
+âš«ï¸ `/stop` - Stop the robot
 
 
 
-🐹 Special Hamster Commands:
+ðŸ¹ Special Hamster Commands:
 
-🟠 `/buy item` - Purchase an item/card ( `/buy Fan tokens` )
-🟠 `/claim_daily_combo` - Claim daily combo ( `You need to purchase items by commands` )
-🟠 `/cipher CIPHER` - Claim daily cipher ( `/cipher BTC` )
+ðŸŸ  `/buy item` - Purchase an item/card ( `/buy Fan tokens` )
+ðŸŸ  `/claim_daily_combo` - Claim daily combo ( `You need to purchase items by commands` )
+ðŸŸ  `/cipher CIPHER` - Claim daily cipher ( `/cipher BTC` )
 
 
 
@@ -413,10 +423,10 @@ Coded By: @uPaSKaL | GitHub: [Poryaei](https://github.com/Poryaei)
                           """)
 
     elif text == '/version':
-        await event.reply(f"ℹ️ Version: {VERSION}\n\nCoded By: @uPaSKaL | GitHub: [Poryaei](https://github.com/Poryaei)")
+        await event.reply(f"â„¹ï¸ Version: {VERSION}\n\nCoded By: @uPaSKaL | GitHub: [Poryaei](https://github.com/Poryaei)")
     
     elif text == '/stop':
-        await event.reply('👋')
+        await event.reply('ðŸ‘‹')
         sys.exit()
     
     
