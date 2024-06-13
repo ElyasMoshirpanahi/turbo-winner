@@ -1,0 +1,17 @@
+{
+    "api_id":    17016009,
+    "api_hash": "02c608d998220e8935ba29944904a2c4",
+    "admin": 80741935,
+    "bot_token": "6385990167:AAE2aev183R-q8XX49gAFA0uw6mhFlngNSk",
+    "tapswap_clicker": "on",
+    "hamster_clicker": "on",
+    "cexio_clicker": "on",
+    "blum_clicker": "on",
+    "auto_upgrade": true,
+    "max_days_for_return": 40,
+    "max_charge_level": 5,
+    "max_energy_level": 10,
+    "max_tap_level": 10,
+    "no_upgrade":80741935,
+    "cexio_ref_code": "1716310450941700"
+}
