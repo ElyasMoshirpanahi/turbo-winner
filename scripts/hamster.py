@@ -253,7 +253,7 @@ class HamsterCombat:
                             msg = upgrade_response['error_message'].split(": upgradeId ")[-1]
                             pre_request_item = msg.split(" level ")[0]
                             upgrade_level =int(msg.split(" level ")[-1])
-                            self.auto_upgrade = True #REmove later!!!!!!!!!!!!!!!!!!
+                            
                             if self.auto_upgrade == True:
                                 for _ in range(upgrade_level):
                                     self.buy_upgrade(pre_request_item)
