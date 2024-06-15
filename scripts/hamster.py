@@ -34,9 +34,29 @@ class HamsterCombat:
         self.select_exchange()
 
     def wait_time(self, max_taps: int, available_taps: int, taps_recover_per_sec: int):
+        """
+        Calculate the time required to recover all available taps.
+
+        Args:
+            max_taps (int): The maximum number of taps available.
+            available_taps (int): The current number of available taps.
+            taps_recover_per_sec (int): The rate at which taps recover per second.
+
+        Returns:
+            int: The time in seconds required to recover all taps.
+        """
         return round((max_taps - available_taps) / taps_recover_per_sec)
 
     def auth_token(self, url):
+        """
+        Authenticate with the server and obtain a token.
+
+        Args:
+            url (str): The URL containing the initDataRaw parameter.
+
+        Returns:
+            bool: True if authentication was successful, False otherwise.
+        """
         if self.token and self.token_expiration and datetime.now() < self.token_expiration:
             self.logger.info("Using cached Auth Token.")
             return True
@@ -63,6 +83,16 @@ class HamsterCombat:
         return False
 
     def post_request(self, endpoint, payload=None):
+        """
+        Send a POST request to the specified endpoint.
+
+        Args:
+            endpoint (str): The API endpoint to send the request to.
+            payload (dict, optional): The request payload. Defaults to None.
+
+        Returns:
+            Union[dict, bool]: The response JSON if the request was successful, False otherwise.
+        """
         if not self.token or (self.token_expiration and datetime.now() >= self.token_expiration):
             self.logger.info("Auth Token expired or invalid. Refreshing token...")
             if not self.auth_token(self.url):
@@ -84,17 +114,44 @@ class HamsterCombat:
         return False
 
     def select_exchange(self, exchange_id: str = "bingx"):
+        """
+        Select the exchange to use.
+
+        Args:
+            exchange_id (str, optional): The ID of the exchange to select. Defaults to "bingx".
+
+        Returns:
+            Union[dict, bool]: The response JSON if the request was successful, False otherwise.
+        """
         payload = {"exchangeId": exchange_id}
         return self.post_request('/clicker/select-exchange', payload)
 
     def list_tasks(self):
+        """
+        List the available tasks.
+
+        Returns:
+            Union[dict, bool]: The response JSON containing the tasks if the request was successful, False otherwise.
+        """
         return self.post_request('/clicker/list-tasks')
 
     def check_task(self, task_id: str = "streak_days"):
+        """
+        Check the status of a specific task.
+
+        Args:
+            task_id (str, optional): The ID of the task to check. Defaults to "streak_days".
+
+        Returns:
+            Union[dict, bool]: The response JSON if the request was successful, False otherwise.
+        """
         payload = {"taskId": task_id}
         return self.post_request('/clicker/check-task', payload)
 
     def do_tasks(self):
+        """
+        Perform daily tasks if any are available.
+        """
         list_tasks = self.list_tasks()
         if not list_tasks or 'tasks' not in list_tasks:
             return
@@ -104,9 +161,16 @@ class HamsterCombat:
                 self.check_task()
 
     def claim_daily_combo(self):
+        """
+        Claim the daily combo reward.
+
+        Returns:
+            Union[dict, bool]: The response JSON if the request was successful, False otherwise.
+        """
         return self.post_request('/clicker/claim-daily-combo')
 
     def claim_daily_cipher(self, cipher: str):
+        
         payload = {"cipher": cipher}
         response = self.post_request('/clicker/claim-daily-cipher', payload)
         if 'error_message' in response:
@@ -116,14 +180,40 @@ class HamsterCombat:
         return response
 
     def buy_boost(self, boost_id: str, timex=time.time() * 1000):
+        """
+        Buy a boost.
+
+        Args:
+            boost_id (str): The ID of the boost to buy.
+            timex (float, optional): The current timestamp in milliseconds. Defaults to time.time() * 1000.
+
+        Returns:
+            Union[dict, bool]: The response JSON if the request was successful, False otherwise.
+        """
         payload = {"boostId": boost_id, "timestamp": timex}
         return self.post_request('/clicker/buy-boost', payload)
 
     def buy_upgrade(self, upgrade_id: str, timex=time.time() * 1000):
+        """
+        Buy an upgrade.
+
+        Args:
+            upgrade_id (str): The ID of the upgrade to buy.
+            timex (float, optional): The current timestamp in milliseconds. Defaults to time.time() * 1000.
+
+        Returns:
+            Union[dict, bool]: The response JSON if the request was successful, False otherwise.
+        """
         payload = {"upgradeId": upgrade_id, "timestamp": timex}
         return self.post_request('/clicker/buy-upgrade', payload)
 
     def balance_coins(self):
+        """
+        Get the current balance of coins.
+
+        Returns:
+            Union[int, bool]: The balance of coins if the request was successful, False otherwise.
+        """
         response = self.post_request('/clicker/sync')
         if response:
             self.earn_passive_per_hour    = response['clickerUser']['earnPassivePerHour']
@@ -158,7 +248,20 @@ class HamsterCombat:
                 if upgrade_name.lower() in upgrade_to_buy['name'].lower():
                     upgrade_response = self.buy_upgrade(upgrade_to_buy['id'])
                     if 'error_code' in upgrade_response:
-                        return False, upgrade_response['error_message']
+                        if upgrade_response['error_code'] == "UPGRADE_NOT_AVAILABLE":
+                            #Buy prequests then but the item
+                            msg = upgrade_response['error_message'].split(": upgradeId ")[-1]
+                            pre_request_item = msg.split(" level ")[0]
+                            upgrade_level =int(msg.split(" level ")[-1])
+                            self.auto_upgrade = True #REmove later!!!!!!!!!!!!!!!!!!
+                            if self.auto_upgrade == True:
+                                for _ in range(upgrade_level):
+                                    self.buy_upgrade(pre_request_item)
+                                self.buy_upgrade(upgrade_to_buy['id'])
+                            else:
+                                return False, upgrade_response['error_message']
+                        else:
+                            return False, upgrade_response['error_message']
                     try:
                         for item in upgrade_response['clickerUser']['upgrades']:
                             if item == upgrade_to_buy['id']:
@@ -172,7 +275,6 @@ class HamsterCombat:
             if u['id'] == upgrade_id:
                 return u['level'] - 1, u['price']
         return False
-    
     
     def find_best_upgrades(self, upgrades, time_horizon=2):
         best_upgrades = []
