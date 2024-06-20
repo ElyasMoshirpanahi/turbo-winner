@@ -402,7 +402,13 @@ async def answer(event):
         m = await event.reply('It might take some time ⏳.')
         buy_card(item)
         await m.edit('🚀 Your request has been sent.')
-        
+    
+    elif text.startswith('/add_account '):
+        phone = text.split('/add_account ')[1]
+        m = await event.reply('It might take some time ⏳.')
+        res = create_client(api_id, api_hash, admin, cexio_ref_code,phone=phone)
+        m = await event.reply(f'Result of adding accounts {res}')
+
     elif text == '/balance':
         m = await event.reply('Calculating the inventory. It might take some time ⏳.')
         tapswap, hamster, cexio, hamster_earn_per_hour, data = total_balance()
@@ -445,10 +451,11 @@ Just a powerful clicker and non-stop bread 🚀
 🟢 `/click on` - Start collecting (Hamster ~ TapSwap ~ Cex IO)
 🔴 `/click off` - Stop collecting (Hamster ~ TapSwap ~ Cex IO)
 
-🟡 `/ping` - Check if the robot is online
-🟢 `/help` - Display help menu
-⚪️ `/balance` - Show Total balance
-⚫️ `/stop` - Stop the robot
+🟠 `/add_account phone number` - Add a new telegram account ( `/add_account +98 918 000 0000` )
+🟡 /ping - Check if the robot is online
+🟢 /help - Display help menu
+⚪️ /balance - Show Total balance
+⚫️ /stop - Stop the robot
 
 
 
@@ -457,7 +464,6 @@ Just a powerful clicker and non-stop bread 🚀
 🟠 `/buy item` - Purchase an item/card ( `/buy Fan tokens` )
 🟠 `/claim_daily_combo` - Claim daily combo ( `You need to purchase items by commands` )
 🟠 `/cipher CIPHER` - Claim daily cipher ( `/cipher BTC` )
-
 
 
 Coded By: @uPaSKaL | GitHub: [Poryaei](https://github.com/Poryaei)

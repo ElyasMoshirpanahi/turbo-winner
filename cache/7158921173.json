@@ -2,5 +2,12 @@
     "start_bots": 3,
     "tapswap_url": "https://app.tapswap.ai/#tgWebAppData=query_id%3DAAHVd7QqAwAAANV3tCqExw1O%26user%3D%257B%2522id%2522%253A7158921173%252C%2522first_name%2522%253A%2522Ffff%2522%252C%2522last_name%2522%253A%2522%2522%252C%2522username%2522%253A%2522Pantomemer%2522%252C%2522language_code%2522%253A%2522en%2522%252C%2522allows_write_to_pm%2522%253Atrue%257D%26auth_date%3D1718271965%26hash%3D131a6d508f00342caf524954463007ae65981c04d3ccedab1a690f083ad2a6ad&tgWebAppVersion=7.4&tgWebAppPlatform=ios",
     "hamster_url": "https://app.hamsterkombat.io/clicker/?tgWebAppStartParam=kentId80741935#tgWebAppData=user%3D%257B%2522id%2522%253A7158921173%252C%2522first_name%2522%253A%2522Ffff%2522%252C%2522last_name%2522%253A%2522%2522%252C%2522username%2522%253A%2522Pantomemer%2522%252C%2522language_code%2522%253A%2522en%2522%252C%2522allows_write_to_pm%2522%253Atrue%257D%26chat_instance%3D-293410409805298797%26chat_type%3Dprivate%26start_param%3DkentId80741935%26auth_date%3D1718271971%26hash%3Dbd021f8e0fbd5981c9db125ed45a278fecf05d3617624fe0af23f1a1ebc9fe2f&tgWebAppVersion=7.4&tgWebAppPlatform=ios",
-    "cex_io_url": "https://cexp.cex.io/#tgWebAppData=query_id%3DAAHVd7QqAwAAANV3tCqd55Ml%26user%3D%257B%2522id%2522%253A7158921173%252C%2522first_name%2522%253A%2522Ffff%2522%252C%2522last_name%2522%253A%2522%2522%252C%2522username%2522%253A%2522Pantomemer%2522%252C%2522language_code%2522%253A%2522en%2522%252C%2522allows_write_to_pm%2522%253Atrue%257D%26auth_date%3D1718271977%26hash%3D008b1f2b0589a3d238218dd5027b1e2e0b117c05c820f732bf09a39b708dc665&tgWebAppVersion=7.4&tgWebAppPlatform=ios"
+    "cex_io_url": "https://cexp.cex.io/#tgWebAppData=query_id%3DAAHVd7QqAwAAANV3tCqd55Ml%26user%3D%257B%2522id%2522%253A7158921173%252C%2522first_name%2522%253A%2522Ffff%2522%252C%2522last_name%2522%253A%2522%2522%252C%2522username%2522%253A%2522Pantomemer%2522%252C%2522language_code%2522%253A%2522en%2522%252C%2522allows_write_to_pm%2522%253Atrue%257D%26auth_date%3D1718271977%26hash%3D008b1f2b0589a3d238218dd5027b1e2e0b117c05c820f732bf09a39b708dc665&tgWebAppVersion=7.4&tgWebAppPlatform=ios",
+    "next_tapswap_click": 1718568421.2787442,
+    "tapswap_balance": 4045446,
+    "next_hamster_click": 1718570355.3169968,
+    "hamster_balance": 22058627.261199903,
+    "hamster_earn_per_hour": 217121,
+    "next_cexio_click": 1718578380.314,
+    "cex_io_balance": "33016.22"
 }

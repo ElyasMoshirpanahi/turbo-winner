@@ -2,5 +2,12 @@
     "start_bots": 3,
     "tapswap_url": "https://app.tapswap.ai/#tgWebAppData=query_id%3DAAEJBTgwAwAAAAkFODCT9YdN%26user%3D%257B%2522id%2522%253A7251428617%252C%2522first_name%2522%253A%2522mom%2520ela%2522%252C%2522last_name%2522%253A%2522%2522%252C%2522language_code%2522%253A%2522fa%2522%252C%2522allows_write_to_pm%2522%253Atrue%257D%26auth_date%3D1718272788%26hash%3Db73c5ae73a48b63594dd68e4fee0070bff9ae10facc319e16fcbeafb8d8a9b94&tgWebAppVersion=7.4&tgWebAppPlatform=ios",
     "hamster_url": "https://app.hamsterkombat.io/clicker/?tgWebAppStartParam=kentId80741935#tgWebAppData=user%3D%257B%2522id%2522%253A7251428617%252C%2522first_name%2522%253A%2522mom%2520ela%2522%252C%2522last_name%2522%253A%2522%2522%252C%2522language_code%2522%253A%2522fa%2522%252C%2522allows_write_to_pm%2522%253Atrue%257D%26chat_instance%3D6841193049367122615%26chat_type%3Dprivate%26start_param%3DkentId80741935%26auth_date%3D1718272794%26hash%3Db1a69cca74842b6e93d3a4546313e72c7705e385ba9034997adcd5ac4ae08535&tgWebAppVersion=7.4&tgWebAppPlatform=ios",
-    "cex_io_url": "https://cexp.cex.io/#tgWebAppData=query_id%3DAAEJBTgwAwAAAAkFODBUNJS3%26user%3D%257B%2522id%2522%253A7251428617%252C%2522first_name%2522%253A%2522mom%2520ela%2522%252C%2522last_name%2522%253A%2522%2522%252C%2522language_code%2522%253A%2522fa%2522%252C%2522allows_write_to_pm%2522%253Atrue%257D%26auth_date%3D1718272800%26hash%3Dec5af7ed67e0a116bf0208ba0de301934a9b2d1d9e72d09504b3ca68ae697492&tgWebAppVersion=7.4&tgWebAppPlatform=ios"
+    "cex_io_url": "https://cexp.cex.io/#tgWebAppData=query_id%3DAAEJBTgwAwAAAAkFODBUNJS3%26user%3D%257B%2522id%2522%253A7251428617%252C%2522first_name%2522%253A%2522mom%2520ela%2522%252C%2522last_name%2522%253A%2522%2522%252C%2522language_code%2522%253A%2522fa%2522%252C%2522allows_write_to_pm%2522%253Atrue%257D%26auth_date%3D1718272800%26hash%3Dec5af7ed67e0a116bf0208ba0de301934a9b2d1d9e72d09504b3ca68ae697492&tgWebAppVersion=7.4&tgWebAppPlatform=ios",
+    "next_tapswap_click": 1718569132.3278706,
+    "tapswap_balance": 840764,
+    "next_hamster_click": 1718567496.6089635,
+    "hamster_balance": 13661152.274600033,
+    "hamster_earn_per_hour": 111489,
+    "next_cexio_click": 1718578319.508,
+    "cex_io_balance": "29584.00"
 }
